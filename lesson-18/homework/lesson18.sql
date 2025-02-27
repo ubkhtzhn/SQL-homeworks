@@ -19,8 +19,9 @@ where price > (select avg(price) from products)
 -- Find Employees in Sales Department
 -- Retrieve employees who work in the "Sales" department.
 
-select d.id, name, department_name from departments d, employees e
-where d.id = e.department_id and d.department_name = 'sales'
+select d.id, name, department_name from departments d
+join employees e
+on d.id = e.department_id and d.department_name = 'sales'
 
 -- Exercise 4 (lvl_2) --
 
