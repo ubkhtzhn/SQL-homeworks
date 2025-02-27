@@ -44,12 +44,10 @@ order by category_id
 -- Find Employees in Department with Highest Average Salary
 -- Retrieve employees working in the department with the highest average salary.
 
-select e1.id, e1.name, d.department_name, e1.salary, e1.department_id from employees e1
-join (select department_id, max(salary) maxgo from employees group by department_id) as e2
-on e1.department_id = e2.department_id and e1.salary = e2.maxgo
+select ranked.id, name, department_name salary, department_id from (select *, rank() over (partition by department_id order by salary desc) rank from employees) as ranked
 join departments d
-on e1.department_id = d.id
-order by id
+on ranked.department_id = d.id
+where rank = 1
 
 -- Exercise 7 (lvl_4) -- 
 
